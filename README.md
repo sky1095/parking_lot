@@ -1,9 +1,9 @@
-# Project Title
+# Parking Lot
 
-Brief description about what this project does and who it's for. You could also include some badges here for continuous integration, code coverage, etc.
+A parking lot system designed for frontend and backend
 
 ## Table of Contents
-- [Project Title](#project-title)
+- [Parking Lot](#parking-lot)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Technologies](#technologies)
@@ -72,4 +72,4 @@ You can use tools like `curl`, Postman, or any other HTTP client to make request
 The frontend provides a user-friendly interface to interact with the parking lot system. It includes a bottom navigation bar with 2 tabs to navigate between different sections of the application.
 
 ## Contact
-If you have any questions, feel free to contact [Your Name](mailto:your.email@example.com). You can also find more information on our [website](https://example.com).
+If you have any questions, feel free to contact [Sudhanshu](mailto:sudhanshuyadavofficial@gmail.com).
