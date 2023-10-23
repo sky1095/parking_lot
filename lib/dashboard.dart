@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_system/core/navigation/navigation_path.dart';
 import 'package:parking_system/parking_lot_test_db.dart';
 
 import 'features/onboarding/ui/helper/onboarding_dialog.dart';
@@ -12,15 +13,19 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   void _addLot() {
-    OnboardingDialog.showOnboardingDialog(context);
-    setState(() {});
+    OnboardingDialog.showOnboardingDialog(context).whenComplete(() {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Parking lots'),
+        title: Text(
+          'Parking lots',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
       ),
@@ -37,18 +42,27 @@ class _DashboardState extends State<Dashboard> {
             runSpacing: 16,
             children: [
               for (final item in ParkinglotDb.parkinglots)
-                Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(item.name),
-                      const Icon(Icons.local_parking_rounded),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      NavigationPath.parkingLotPage,
+                      arguments: item,
+                    );
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(item.name),
+                        const Icon(Icons.local_parking_rounded),
+                      ],
+                    ),
                   ),
                 )
             ],

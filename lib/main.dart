@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/dashboard.dart';
+import 'package:parking_system/core/navigation/app_navigation.dart';
+import 'package:parking_system/core/navigation/navigation_path.dart';
 
 void main() {
   runApp(const ParkingSystemApp());
@@ -12,11 +13,12 @@ class ParkingSystemApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Parking System',
+      initialRoute: NavigationPath.dashboard,
+      onGenerateRoute: AppNavigation.generateRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Dashboard(),
     );
   }
 }
