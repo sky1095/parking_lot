@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../onboarding/domain/onboarding_entity.dart';
+import '../../../../../core/api/api_services/model/parking_lot_model.dart';
 
 class ParkingSlotItemWidget extends StatelessWidget {
   final Slot slot;
@@ -20,7 +20,7 @@ class ParkingSlotItemWidget extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          slot.id.split(':').last,
+          '${slot.id.substring(0, 3)}:${slot.id.substring(4, 7)}',
         ),
       ),
     );

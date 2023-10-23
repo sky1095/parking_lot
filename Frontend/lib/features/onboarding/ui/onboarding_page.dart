@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/parking_lot_test_db.dart';
+import 'package:parking_system/core/di/app_dependency_injector.dart';
+import 'package:parking_system/features/onboarding/domain/bloc/onboarding_bloc.dart';
+
+import '../domain/model/request_model/create_parking_lot_request_model.dart';
 
 class OnbordingPage extends StatefulWidget {
   const OnbordingPage({super.key});
@@ -14,6 +17,8 @@ class _OnbordingPageState extends State<OnbordingPage> {
   String parkingLotName = '';
   String location = '';
   List<Map<String, String>> slots = [];
+
+  final onboardingBloc = AppDependencyInjector.getIt.get<OnboardingBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +73,15 @@ class _OnbordingPageState extends State<OnbordingPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      ParkinglotDb.addParkinglot(parkingLotName, location);
+      // ParkinglotDb.addParkinglot(parkingLotName, location);
+      onboardingBloc.add(
+        CreateParkingLotEvent(
+          requestModel: CreateParkingLotRequestModel(
+            name: parkingLotName,
+            location: location,
+          ),
+        ),
+      );
       Navigator.pop(context);
     }
   }

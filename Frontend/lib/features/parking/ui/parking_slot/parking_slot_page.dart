@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../onboarding/domain/onboarding_entity.dart';
+import '../../../../core/api/api_services/model/parking_lot_model.dart';
 import 'widgets/parking_slot_item_widget.dart';
 
 class ParkingSlotPage extends StatelessWidget {

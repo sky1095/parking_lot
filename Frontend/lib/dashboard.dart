@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/core/navigation/navigation_path.dart';
-import 'package:parking_system/parking_lot_test_db.dart';
 
-import 'features/onboarding/ui/helper/onboarding_dialog.dart';
+import 'features/allotment/ui/car_allotment_tab.dart';
+import 'features/parking/ui/parking_tab.dart';
+
+enum Tabs { parking, alloted }
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -12,71 +13,35 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  void _addLot() {
-    OnboardingDialog.showOnboardingDialog(context).whenComplete(() {
-      setState(() {});
-    });
-  }
+  int selectedTab = Tabs.parking.index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Parking lots',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        centerTitle: true,
+      body: IndexedStack(
+        index: selectedTab,
+        children: const [
+          ParkingTab(),
+          CarAllotmentTab(),
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 8.0,
-            bottom: MediaQuery.of(context).padding.bottom,
-            right: 8.0,
-            left: 8.0,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) {
+          setState(() {
+            selectedTab = value;
+          });
+        },
+        currentIndex: selectedTab,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_parking_rounded),
+            label: 'Parking',
           ),
-          child: Wrap(
-            spacing: 18,
-            runSpacing: 16,
-            children: [
-              for (final item in ParkinglotDb.parkinglots)
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      NavigationPath.parkingLotPage,
-                      arguments: item,
-                    );
-                  },
-                  child: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(item.name),
-                        const Icon(Icons.local_parking_rounded),
-                      ],
-                    ),
-                  ),
-                )
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.car_rental),
+            label: 'Car Parked',
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _addLot,
-        tooltip: 'Add Parking lot',
-        label: const Row(
-          children: [
-            Text('Add Parking lot'),
-          ],
-        ),
+        ],
       ),
     );
   }

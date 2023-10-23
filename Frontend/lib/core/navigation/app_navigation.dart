@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/core/navigation/navigation_path.dart';
+import 'package:parking_system/core/api/api_services/model/parking_lot_model.dart';
 import 'package:parking_system/dashboard.dart';
-import 'package:parking_system/features/parking/ui/parking_lot/parking_lot_page.dart';
-import 'package:parking_system/features/parking/ui/parking_slot/parking_slot_page.dart';
 
-import '../../features/onboarding/domain/onboarding_entity.dart';
+import '../../features/parking/ui/parking_lot/parking_lot_page.dart';
+import '../../features/parking/ui/parking_slot/parking_slot_page.dart';
+import 'navigation_path.dart';
 
 class AppNavigation {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -17,7 +17,7 @@ class AppNavigation {
 
       case NavigationPath.parkingLotPage:
         return MaterialPageRoute(
-          builder: (_) => ParkinglotPage(parkingLot: args as OnboardingEntity),
+          builder: (_) => ParkinglotPage(parkingLot: args as ParkingLotModel),
         );
 
       case NavigationPath.parkingSlotPage:

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/core/navigation/app_navigation.dart';
-import 'package:parking_system/core/navigation/navigation_path.dart';
+
+import 'core/di/app_dependency_injector.dart';
+import 'core/navigation/app_navigation.dart';
+import 'core/navigation/navigation_path.dart';
 
 void main() {
+  AppDependencyInjector.setup();
   runApp(const ParkingSystemApp());
 }
 

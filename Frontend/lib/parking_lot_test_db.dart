@@ -1,47 +1,30 @@
 import 'dart:collection';
 
-import 'features/onboarding/domain/onboarding_entity.dart';
+import 'core/api/api_services/model/parking_lot_model.dart';
 
 class ParkinglotDb {
-  static final HashMap<String, OnboardingEntity> _parkinglots =
-      HashMap<String, OnboardingEntity>();
+  static final HashMap<String, ParkingLotModel> _parkinglots =
+      HashMap<String, ParkingLotModel>();
 
-  static List<OnboardingEntity> get parkinglots => _parkinglots.values.toList();
+  static final HashMap<String, ParkingLotModel> _parkedCars =
+      HashMap<String, ParkingLotModel>();
 
-  static void addParkinglot(String name, String location) {
-    for (int k = 0; k < 30; ++k) {
-      OnboardingEntity newParkinglot = OnboardingEntity(
-          name: name,
-          location: location,
-          id: 'parking_lot_${_parkinglots.length + 1}',
-          floors: [
-            for (int i = 0; i < 3; ++i)
-              Floor(
-                id: '${'parking_lot_${_parkinglots.length + 1}'}:floor$i',
-                number: i,
-                slots: [
-                  for (int j = 0; j < 10; ++j)
-                    Slot(
-                      id: '${'parking_lot_${_parkinglots.length + 1}'}:floor_$i:slot_$j',
-                      size: ParkingSlotSizeType.small,
-                      isOccupied: false,
-                    ),
-                  for (int j = 10; j < 20; ++j)
-                    Slot(
-                      id: '${'parking_lot_${_parkinglots.length + 1}'}:floor_$i:slot_$j',
-                      size: ParkingSlotSizeType.medium,
-                      isOccupied: false,
-                    ),
-                  for (int j = 20; j < 30; ++j)
-                    Slot(
-                      id: '${'parking_lot_${_parkinglots.length + 1}'}:floor_$i:slot_$j',
-                      size: ParkingSlotSizeType.large,
-                      isOccupied: false,
-                    )
-                ],
-              )
-          ]);
-      _parkinglots[newParkinglot.id] = newParkinglot;
+  static List<ParkingLotModel> get parkinglots => _parkinglots.values.toList();
+  static List<ParkingLotModel> get parkedCars => _parkedCars.values.toList();
+
+  static void addParkinglot(ParkingLotModel newParkinglot) {
+    _parkinglots[newParkinglot.id] = newParkinglot;
+  }
+
+  static void addParkedCars(String id) {
+    for (final lot in _parkinglots.values) {
+      for (final floor in lot.floors) {
+        for (final slot in floor.slots) {
+          if (slot.id == id) {
+            _parkedCars[id] = lot;
+          }
+        }
+      }
     }
   }
 

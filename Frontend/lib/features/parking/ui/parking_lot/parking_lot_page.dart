@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/features/onboarding/domain/onboarding_entity.dart';
 import 'package:parking_system/features/parking/ui/parking_slot/parking_slot_page.dart';
 
+import '../../../../core/api/api_services/model/parking_lot_model.dart';
 import '../../../../core/navigation/navigation_path.dart';
 
 class ParkinglotPage extends StatelessWidget {
-  final OnboardingEntity parkingLot;
+  final ParkingLotModel parkingLot;
   const ParkinglotPage({super.key, required this.parkingLot});
 
   @override
